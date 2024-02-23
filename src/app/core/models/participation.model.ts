@@ -1,4 +1,4 @@
-export class Participation {
+export class ParticipationModel {
   id!: number;
   year!: number;
   city!: string;
