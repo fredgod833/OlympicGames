@@ -1,0 +1,9 @@
+.pagecontent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  div {
+    vertical-align: center;
+    flex-basis: fit-content;
+  }
+}
