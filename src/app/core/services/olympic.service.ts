@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, map, Subject, take} from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import {OlympicCountry} from "../models/olympic-country.model";
+import {OlympicCountryModel} from "../models/olympic-country.model";
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
 
   //Subject permettant la mise en cache du résultat d'appel du service.
-  private olympics$: Subject<OlympicCountry[]> = new BehaviorSubject<OlympicCountry[]>([]);
+  private olympics$: Subject<OlympicCountryModel[]> = new BehaviorSubject<OlympicCountryModel[]>([]);
 
   /**
    * Constructor
@@ -29,8 +29,8 @@ export class OlympicService {
    * Appel et met en cache le résultat du service dans le BehaviorSubject
    */
   public loadInitialData() {
-    return this.http.get<OlympicCountry[]>(this.olympicUrl).pipe (
-      tap((value : OlympicCountry[]) => this.olympics$.next(value)),
+    return this.http.get<OlympicCountryModel[]>(this.olympicUrl).pipe (
+      tap((value : OlympicCountryModel[]) => this.olympics$.next(value)),
       catchError((error, caught) => {
         console.error(error);
         // tableau vide car pas de données disponibles

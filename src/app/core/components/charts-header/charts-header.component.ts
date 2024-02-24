@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {InfoBox} from "../../models/info-box.model";
+import {InfoBox} from "../info-box/info-box.model";
 
 @Component({
   selector: 'app-charts-header',
