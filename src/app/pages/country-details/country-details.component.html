@@ -1,0 +1,26 @@
+
+<div *ngIf="model$ | async as model">
+  <app-charts-header
+    [title]="'toto'"
+    [infoBoxes]="model.infoBoxes">
+  </app-charts-header>
+  <div class="pagecontent">
+    <div>
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="model.datas"
+        [legend]="false"
+        [showGridLines]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [animations]="true"
+        [gradient]="true"
+        [xAxisLabel]="'Dates'"
+        [showXAxisLabel]="true"
+        (window:resize)="onResize($event)"
+      >
+      </ngx-charts-line-chart>
+    </div>
+  </div>
+</div>
