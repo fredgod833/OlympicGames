@@ -5,7 +5,6 @@ import {OlympicService} from "../../core/services/olympic.service";
 import {tap} from "rxjs/operators";
 import {OlympicCountryModel} from "../../core/models/olympic-country.model";
 import {InfoBox} from "../../core/components/info-box/info-box.model";
-import {CountryPageModel} from "./country-page.model";
 import {ActivatedRoute} from "@angular/router";
 import {ChartLine, LinesDataModel} from "../../core/models/charts/lines-data.model";
 import {ParticipationModel} from "../../core/models/participation.model";
@@ -18,13 +17,16 @@ import {LayoutService} from "../../core/services/layout.service";
 })
 export class CountryDetailsComponent implements OnInit {
 
-  model$! : Observable<CountryPageModel>;
+  model$! : Observable<LinesDataModel>;
 
   view!: [number, number];
 
+  countryName!: string;
+
+  infoBoxes: InfoBox[]=[];
+
   colorScheme: Color = {
-    domain: [ '#3BFA6A', '#FA4039',
-      '#3BEBFA', '#1E1E1E', '#364DFA'],
+    domain: [],
     name: "custom",
     selectable: false,
     group: ScaleType.Linear
@@ -35,38 +37,20 @@ export class CountryDetailsComponent implements OnInit {
   ngOnInit(): void {
     // met à jour la taille disponible pour le graph
     this.adjustGraphView();
-    const countryName:string = this.route.snapshot.params['id'];
-    console.log("detail "+countryName);
+    this.countryName = this.route.snapshot.params['id'];
     // créé l'observable pour l'obtention des données
     this.model$ = this.olympicService.getOlympics().pipe (
-      tap((olympics : OlympicCountryModel[]) => console.log(olympics)),
-      filter((olympics : OlympicCountryModel[]) => olympics.length>0),
-      map((olympics : OlympicCountryModel[]) => {
-
-        let matches : OlympicCountryModel[] = olympics.filter(value => value.country === countryName);
-        if (matches.length==1) {
-          let countryName: string = matches[0].country;
-          return new CountryPageModel(
-            countryName,
-            this.olympics2InfoBoxes(matches[0]),
-            this.appendGraphDatas(new LinesDataModel(countryName), matches[0])
-          );
-
-        } else {
-
-          let graphLines:LinesDataModel = new LinesDataModel("Medals History per Country");
-          olympics.forEach((olympic: OlympicCountryModel) => {
-            this.appendGraphDatas(graphLines, olympic);
-          });
-          return new CountryPageModel(
-            "History per Country",
-            this.olympics2InfoBoxes(matches[0]),
-            graphLines
-          );
-
-        }
+      map((olympics : OlympicCountryModel[]) => {return olympics.filter(value => value.country === this.countryName)}),
+      filter((olympics : OlympicCountryModel[]) => olympics.length==1),
+      tap((olympics : OlympicCountryModel[]) => {
+        this.layoutService.updateColorScheme(olympics, this.colorScheme)
+        this.infoBoxes = this.olympics2InfoBoxes(olympics[0]);
       }),
-      tap((model : CountryPageModel) => console.log(JSON.stringify(model))),
+      map((olympics : OlympicCountryModel[]) => {
+        let result : LinesDataModel = new LinesDataModel(this.countryName);
+        this.appendGraphDatas(result, olympics[0]);
+        return result;
+      })
     );
   }
 

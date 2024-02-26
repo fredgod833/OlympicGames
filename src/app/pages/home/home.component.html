@@ -2,7 +2,7 @@
 
   <app-charts-header
     title="Medals per Country"
-    [infoBoxes]="model.infoBoxes">
+    [infoBoxes]="infoBoxes">
   </app-charts-header>
 
   <div class="pagecontent">
@@ -10,7 +10,7 @@
       <ngx-charts-pie-chart
         [view]="view"
         [scheme]="colorScheme"
-        [results]="model.pieData"
+        [results]="model"
         [legend]="false"
         [animations]="false"
         [labels]="true"
@@ -19,7 +19,7 @@
         [trimLabels]="false"
         [arcWidth]="10"
         [gradient]="false"
-        (select)="onSliceClick($event, model.olympicCountries)"
+        (select)="onSliceClick($event)"
         (window:resize)="onResize($event)"
       >
       </ngx-charts-pie-chart>

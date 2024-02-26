@@ -7,7 +7,6 @@ import {OlympicCountryModel} from "../../core/models/olympic-country.model";
 import {ParticipationModel} from "../../core/models/participation.model";
 import {tap} from "rxjs/operators";
 import {InfoBox} from "../../core/components/info-box/info-box.model";
-import {HomePageModel} from "./home-page.model";
 import {Router} from "@angular/router";
 import {LayoutService} from "../../core/services/layout.service";
 
@@ -18,13 +17,14 @@ import {LayoutService} from "../../core/services/layout.service";
 })
 export class HomeComponent implements OnInit {
 
-  model$! : Observable<HomePageModel>;
+  model$! : Observable<PieDataModel[]>;
 
   view!: [number, number];
 
+  infoBoxes: InfoBox[] = [];
+
   colorScheme: Color = {
-    domain: [ '#3BFA6A', '#FA4039',
-      '#3BEBFA', '#1E1E1E', '#364DFA'],
+    domain: [],
     name: "custom",
     selectable: false,
     group: ScaleType.Linear
@@ -38,8 +38,11 @@ export class HomeComponent implements OnInit {
 
     // créé l'observable pour l'obtention des données
     this.model$ = this.olympicService.getOlympics().pipe(
-      tap((olympics : OlympicCountryModel[]) => console.log(olympics)),
-      map((olympics : OlympicCountryModel[]) => new HomePageModel(olympics, this.olympics2InfoBoxes(olympics), this.olympics2Pie(olympics)))
+      tap((olympics : OlympicCountryModel[]) => {
+        this.layoutService.updateColorScheme(olympics, this.colorScheme)
+        this.infoBoxes = this.olympics2InfoBoxes(olympics);
+      }),
+      map((olympics : OlympicCountryModel[]) => this.olympics2Pie(olympics))
     );
   }
 
@@ -81,29 +84,8 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
-  private olympicsCountryByName(olympicCountries: OlympicCountryModel[] , name: string) : OlympicCountryModel {
-    let filtered : OlympicCountryModel[] = olympicCountries.filter((value:OlympicCountryModel) => value.country === name);
-    if (filtered.length == 1) {
-      return filtered[0];
-    }
-    throw new Error(`data not found for ${name}`);
-  }
-
-  onSliceClick(event: any, olympicCountries: OlympicCountryModel[]) {
-
-    // recherche de la couleur de la tranche.
-    // index de la data
-    //console.log(JSON.stringify(olympic));
+  onSliceClick(event: any) {
     this.router.navigateByUrl(`country/${event.name}`);
-  }
-
-  private getCountryColor(olympicCountries: OlympicCountryModel[], countryName: string) {
-    let countryIdx: number = olympicCountries.findIndex((country: OlympicCountryModel) => country.country === countryName);
-    let colorCount: number = this.colorScheme.domain.length;
-    let colorIdx: number = ((countryIdx + 1) % colorCount) - 1;
-    colorIdx = (colorIdx == -1) ? colorCount - 1 : colorIdx;
-    let color: string = this.colorScheme.domain[colorIdx];
-    return color;
   }
 
   onResize(event: Event) {

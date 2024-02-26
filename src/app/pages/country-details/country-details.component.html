@@ -1,15 +1,15 @@
 
 <div *ngIf="model$ | async as model">
   <app-charts-header
-    [title]="model.name"
-    [infoBoxes]="model.infoBoxes">
+    [title]="countryName"
+    [infoBoxes]="infoBoxes">
   </app-charts-header>
   <div class="pagecontent">
     <div>
       <ngx-charts-line-chart
         [view]="view"
         [scheme]="colorScheme"
-        [results]="model.datas.lines"
+        [results]="model.lines"
         [legend]="false"
         [showGridLines]="booleanAttribute(true)"
         [showRefLabels]="true"
@@ -19,8 +19,8 @@
         [animations]="true"
         [gradient]="true"
         [xAxisLabel]="'Dates'"
-        [yScaleMin]="model.datas.yMin * 0.8"
-        [yScaleMax]="model.datas.yMax * 1.1"
+        [yScaleMin]="model.yMin * 0.8"
+        [yScaleMax]="model.yMax * 1.1"
         [showXAxisLabel]="true"
         (window:resize)="onResize($event)"
       >
