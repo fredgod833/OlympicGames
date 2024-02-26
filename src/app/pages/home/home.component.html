@@ -1,9 +1,10 @@
 <div *ngIf="model$ | async as model">
+
   <app-charts-header
     title="Medals per Country"
     [infoBoxes]="model.infoBoxes">
   </app-charts-header>
-  <!-- <ngx-charts-pie-grid [view]="view" [scheme]="colorScheme" [results]="data"></ngx-charts-pie-grid> -->
+
   <div class="pagecontent">
     <div>
       <ngx-charts-pie-chart
@@ -18,7 +19,7 @@
         [trimLabels]="false"
         [arcWidth]="10"
         [gradient]="false"
-        (select)="onSliceClick($event)"
+        (select)="onSliceClick($event, model.olympicCountries)"
         (window:resize)="onResize($event)"
       >
       </ngx-charts-pie-chart>

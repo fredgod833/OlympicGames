@@ -1,7 +1,7 @@
 
 <div *ngIf="model$ | async as model">
   <app-charts-header
-    [title]="'toto'"
+    [title]="model.name"
     [infoBoxes]="model.infoBoxes">
   </app-charts-header>
   <div class="pagecontent">
@@ -9,14 +9,18 @@
       <ngx-charts-line-chart
         [view]="view"
         [scheme]="colorScheme"
-        [results]="model.datas"
+        [results]="model.datas.lines"
         [legend]="false"
-        [showGridLines]="true"
+        [showGridLines]="booleanAttribute(true)"
+        [showRefLabels]="true"
+        [showRefLines]="true"
         [xAxis]="true"
         [yAxis]="true"
         [animations]="true"
         [gradient]="true"
         [xAxisLabel]="'Dates'"
+        [yScaleMin]="model.datas.yMin * 0.8"
+        [yScaleMax]="model.datas.yMax * 1.1"
         [showXAxisLabel]="true"
         (window:resize)="onResize($event)"
       >
