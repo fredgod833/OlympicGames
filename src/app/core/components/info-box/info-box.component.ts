@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 
+/**
+ * Info Box Component presents one value and it's description
+ */
 @Component({
   selector: 'app-info-box',
   templateUrl: './info-box.component.html',
@@ -8,7 +11,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class InfoBoxComponent implements OnInit {
 
   @Input()
-  title!: string;
+  description!: string;
 
   @Input()
   value!: number

@@ -1,7 +1,7 @@
 <div class="pageHeader">
-  <h2>{{title}}</h2>
+  <h2>{{description}}</h2>
 </div>
 
 <div class="infobar">
-  <app-info-box *ngFor="let infoBox of infoBoxes" [title]="infoBox.title" [value]="infoBox.value"></app-info-box>
+  <app-info-box *ngFor="let infoBox of infoBoxes" [description]="infoBox.description" [value]="infoBox.value"></app-info-box>
 </div>

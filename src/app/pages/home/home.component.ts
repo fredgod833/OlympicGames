@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {map, Observable, of, reduce, take, takeLast} from 'rxjs';
+import {map, Observable } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import {Color, LegendPosition, ScaleType} from "@swimlane/ngx-charts";
+import {Color, ScaleType} from "@swimlane/ngx-charts";
 import {PieDataModel} from "../../core/models/charts/pie-data.model";
 import {OlympicCountryModel} from "../../core/models/olympic-country.model";
 import {ParticipationModel} from "../../core/models/participation.model";
 import {tap} from "rxjs/operators";
-import {InfoBox} from "../../core/components/info-box/info-box.model";
+import {InfoBox} from "../../core/models/info-box.model";
 import {Router} from "@angular/router";
 import {LayoutService} from "../../core/services/layout.service";
 

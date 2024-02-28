@@ -1,6 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {InfoBox} from "../info-box/info-box.model";
+import {InfoBox} from "../../models/info-box.model";
 
+
+/**
+ * Composant Title + info boxes
+ */
 @Component({
   selector: 'app-charts-header',
   templateUrl: './charts-header.component.html',
@@ -9,7 +13,7 @@ import {InfoBox} from "../info-box/info-box.model";
 export class ChartsHeaderComponent {
 
   @Input()
-  title!:string
+  description!:string
 
   @Input()
   infoBoxes!:InfoBox[];

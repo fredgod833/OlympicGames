@@ -1,10 +1,10 @@
 import {booleanAttribute, Component, OnInit} from '@angular/core';
-import {filter, map, Observable, takeLast} from "rxjs";
+import {filter, map, Observable} from "rxjs";
 import {Color, ScaleType} from "@swimlane/ngx-charts";
 import {OlympicService} from "../../core/services/olympic.service";
 import {tap} from "rxjs/operators";
 import {OlympicCountryModel} from "../../core/models/olympic-country.model";
-import {InfoBox} from "../../core/components/info-box/info-box.model";
+import {InfoBox} from "../../core/models/info-box.model";
 import {ActivatedRoute} from "@angular/router";
 import {ChartLine, LinesDataModel} from "../../core/models/charts/lines-data.model";
 import {ParticipationModel} from "../../core/models/participation.model";

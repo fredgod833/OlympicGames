@@ -6,5 +6,28 @@
     vertical-align: center;
     flex-basis: fit-content;
   }
+}
 
+
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width:90%;
+}
+
+.back-link {
+    background-color: darkcyan;
+    padding: 0 0.5em 0 0.5em;
+    border:  0.3em solid darkcyan;
+    border-radius: 0.5em;
+    text-align: center;
+    border-spacing: 10.0vw;
+    margin: 2.0vh;
+    font-size: 1.7vh;
+    width: 4em;
+    a:any-link {
+      color:white;
+      text-decoration-line: none;
+    }
 }

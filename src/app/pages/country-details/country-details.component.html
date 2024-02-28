@@ -1,7 +1,7 @@
 
 <div *ngIf="model$ | async as model">
   <app-charts-header
-    [title]="countryName"
+    [description]="countryName"
     [infoBoxes]="infoBoxes">
   </app-charts-header>
   <div class="pagecontent">
@@ -25,6 +25,11 @@
         (window:resize)="onResize($event)"
       >
       </ngx-charts-line-chart>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <div class="back-link">
+      <a routerLink="" routerLinkActive="active">Back</a>
     </div>
   </div>
 </div>
